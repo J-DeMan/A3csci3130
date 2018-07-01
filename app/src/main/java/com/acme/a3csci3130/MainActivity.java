@@ -11,10 +11,12 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * landing Activity that displays businesses in a list
+ */
 public class MainActivity extends Activity {
 
-
-    private ListView contactListView;
+    private ListView businessListView;
     private FirebaseListAdapter<Business> firebaseAdapter;
 
     @Override
@@ -30,7 +32,7 @@ public class MainActivity extends Activity {
         appData.firebaseReference = appData.firebaseDBInstance.getReference("businesses");
 
         //Get the reference to the UI contents
-        contactListView = (ListView) findViewById(R.id.listView);
+        businessListView = (ListView) findViewById(R.id.listView);
 
         //Set up the List View
        firebaseAdapter = new FirebaseListAdapter<Business>(this, Business.class,
@@ -41,8 +43,8 @@ public class MainActivity extends Activity {
                 name.setText(model.name);
             }
         };
-        contactListView.setAdapter(firebaseAdapter);
-        contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        businessListView.setAdapter(firebaseAdapter);
+        businessListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // onItemClick method is called everytime a user clicks an item on the list
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -52,7 +54,11 @@ public class MainActivity extends Activity {
         });
     }
 
-    public void createContactButton(View v)
+    /**
+     * Initializes the create Business Button
+     * @param v view to put it in
+     */
+    public void createBusinessButton(View v)
     {
         Intent intent=new Intent(this, CreateBusinessAcitivity.class);
         startActivity(intent);
@@ -64,7 +70,4 @@ public class MainActivity extends Activity {
         intent.putExtra("Business", business);
         startActivity(intent);
     }
-
-
-
 }
